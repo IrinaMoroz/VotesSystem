@@ -1,0 +1,10 @@
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\obj\Debug\VoteSystem.Data.csprojResolveAssemblyReference.cache
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\bin\Debug\VoteSystem.Data.dll.config
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\bin\Debug\VoteSystem.Data.dll
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\bin\Debug\VoteSystem.Data.pdb
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\bin\Debug\EntityFramework.dll
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\bin\Debug\EntityFramework.SqlServer.dll
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\bin\Debug\EntityFramework.xml
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\bin\Debug\EntityFramework.SqlServer.xml
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\obj\Debug\VoteSystem.Data.dll
+F:\SourseCode\CShar\VotesSystem\VotesSystem\VoteSystem.Data\obj\Debug\VoteSystem.Data.pdb
