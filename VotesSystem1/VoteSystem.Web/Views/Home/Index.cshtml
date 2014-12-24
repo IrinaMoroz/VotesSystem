@@ -1,8 +1,27 @@
-﻿
+﻿@model IEnumerable<VoteSystem.Data.Vote>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>Votes</h2>
 
-<h2>Index</h2>
+<p>@Html.ActionLink("Create New Vote", "Create", "Votes")</p>
 
+@foreach (var item in Model)
+    {
+        <div style="border-width:medium; border:5px">
+            <div style="border-bottom: 5px; border-bottom-color:red">
+                @Html.DisplayFor(modelItem => item.Name)
+            </div>
+            <ul>
+                @foreach (var question in item.Questions)
+                {
+                    <li>
+                        @Html.DisplayFor(modelItem => question.Name)
+                        @Html.DisplayFor(modelItem => question.VoitCounts)
+                    </li>
+                }
+            </ul>
+        </div>
+    }
