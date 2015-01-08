@@ -53,7 +53,7 @@ namespace VoteSystem.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = 
-            "ID,Name,Description,IsPrivate,EmailRecipient,DateFinish,CategoryID")] Vote vote, List<Question> questions)
+            "ID,Name,Description,IsPrivate,EmailRecipient,DateFinish,CategoryID")] Vote vote, string[] questions)
         {
             try
             {            
@@ -61,7 +61,7 @@ namespace VoteSystem.Web.Controllers
                 {
                     Console.WriteLine(questions);
                     vote.LastModifiedDate = DateTime.Now;
-                    vote.Category = GetCategoryById(vote.CategoryID);                    
+                    vote.Category = db.Categories.Find(vote.CategoryID);                    
                     db.Votes.Add(vote);
                     db.SaveChanges();
                     return RedirectToAction("Index");
