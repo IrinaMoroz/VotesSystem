@@ -71,6 +71,7 @@ namespace VoteSystem.Web.Controllers
             {
                 return HttpNotFound();
             }
+             
             return View(user);
         }
 

@@ -19,8 +19,10 @@ namespace VoteSystem.Data
         public string Description { get; set; }
         [Display(Name = "Private vote")]
         public bool IsPrivate { get; set; }
+        [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}", 
+            ApplyFormatInEditMode = true)]
         public DateTime DateFinish { get; set; }
         [Required]
         [StringLength(100)]
@@ -29,6 +31,9 @@ namespace VoteSystem.Data
         public string LastModifiedBy { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public virtual User User { get; set; }
+        public int CategoryID { get; set; }
+
+        [Display(Name = "Category: ")]
         public virtual Category Category { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
 

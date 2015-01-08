@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using VoteSystem.Data;
 using VoteSystem.Data.DAL;
+using VoteSystem.Data.Models;
 
 namespace VoteSystem.Web.Controllers
 {
@@ -18,6 +20,7 @@ namespace VoteSystem.Web.Controllers
         // GET: Votes
         public ActionResult Index()
         {
+           
             return View(db.Votes.ToList());
         }
 
@@ -39,7 +42,9 @@ namespace VoteSystem.Web.Controllers
         // GET: Votes/Create
         public ActionResult Create()
         {
-            return View(db.Categories.ToList());
+            VoteModel vm = new VoteModel();
+            vm.Categories = db.Categories.ToList<Category>();
+            return View(vm);
         }
 
         // POST: Votes/Create
@@ -47,13 +52,25 @@ namespace VoteSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,IsPrivate,EmailRecipient,DateFinish")] Vote vote)
+        public ActionResult Create([Bind(Include = 
+            "ID,Name,Description,IsPrivate,EmailRecipient,DateFinish,CategoryID")] Vote vote, List<Question> questions)
         {
-            if (ModelState.IsValid)
+            try
+            {            
+                if (ModelState.IsValid)
+                {
+                    Console.WriteLine(questions);
+                    vote.LastModifiedDate = DateTime.Now;
+                    vote.Category = GetCategoryById(vote.CategoryID);                    
+                    db.Votes.Add(vote);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (RetryLimitExceededException /* dex */)
             {
-                db.Votes.Add(vote);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Log the error (uncomment dex variable name and add a line here to write a log.)
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
             }
 
             return View(vote);
@@ -71,7 +88,8 @@ namespace VoteSystem.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vote);
+
+            return View(new VoteModel(vote, db.Categories.ToList<Category>()));
         }
 
         // POST: Votes/Edit/5
@@ -79,10 +97,12 @@ namespace VoteSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,IsPrivate,EmailRecipient,LastModifiedBy,LastModifiedDate,DateFinish")] Vote vote)
+        public ActionResult Edit([Bind(Include = "ID,Name,Description,IsPrivate,EmailRecipient,DateFinish,CategoryID")] Vote vote)
         {
             if (ModelState.IsValid)
             {
+                vote.LastModifiedDate = DateTime.Now;
+                vote.Category = GetCategoryById(vote.CategoryID); 
                 db.Entry(vote).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -124,5 +144,17 @@ namespace VoteSystem.Web.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private Category GetCategoryById(int selectedCategoryID)
+        {
+            var category = from d in db.Categories
+                                 where d.ID == selectedCategoryID
+                                   select d;
+            if (category == null)
+                throw new ArgumentException("category not found");
+
+            return category.ToList<Category>()[0];
+             
+        } 
     }
 }
