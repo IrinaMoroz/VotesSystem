@@ -90,7 +90,8 @@ namespace VoteSystem.Web.Controllers
             return View(question);
         }
 
-        // GET: Questions/Delete/5
+
+        // POST: Questions/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,18 +103,9 @@ namespace VoteSystem.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(question);
-        }
-
-        // POST: Questions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Question question = db.Questions.Find(id);
             db.Questions.Remove(question);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("../Votes/Edit/" + id);
         }
 
         protected override void Dispose(bool disposing)
