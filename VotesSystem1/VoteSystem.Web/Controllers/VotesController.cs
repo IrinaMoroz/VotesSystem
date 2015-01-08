@@ -145,16 +145,5 @@ namespace VoteSystem.Web.Controllers
             base.Dispose(disposing);
         }
 
-        private Category GetCategoryById(int selectedCategoryID)
-        {
-            var category = from d in db.Categories
-                                 where d.ID == selectedCategoryID
-                                   select d;
-            if (category == null)
-                throw new ArgumentException("category not found");
-
-            return category.ToList<Category>()[0];
-             
-        } 
     }
 }
