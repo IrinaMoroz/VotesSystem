@@ -24,3 +24,5 @@ F:\SourseCode\CShar\VotesSystem\VotesSystem1\VoteSystem.Web\bin\EntityFramework.
 F:\SourseCode\CShar\VotesSystem\VotesSystem1\VoteSystem.Web\bin\EntityFramework.SqlServer.xml
 F:\SourseCode\CShar\VotesSystem\VotesSystem1\VoteSystem.Web\bin\ru\EntityFramework.resources.dll
 F:\SourseCode\CShar\VotesSystem\VotesSystem1\VoteSystem.Web\bin\ru\EntityFramework.SqlServer.resources.dll
+F:\SourseCode\CShar\VotesSystem\VotesSystem1\VoteSystem.Web\bin\log4net.dll
+F:\SourseCode\CShar\VotesSystem\VotesSystem1\VoteSystem.Web\bin\log4net.xml

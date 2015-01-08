@@ -20,7 +20,7 @@
         <div id ="Name" class="form-group">
             @Html.LabelFor(model => model.Vote.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Vote.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Vote.Name, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div id="Question" class="form-group">
             @Html.LabelFor(model => model.Vote.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Vote.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Vote.Description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -37,7 +37,7 @@
             @Html.LabelFor(model => model.Vote.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Vote.IsPrivate)
+                    @Html.EditorFor(model => model.IsPrivate)
                     @Html.ValidationMessageFor(model => model.Vote.IsPrivate, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -46,7 +46,7 @@
         <div id ="email" class="form-group">
             @Html.LabelFor(model => model.Vote.EmailRecipient, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Vote.EmailRecipient, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.EmailRecipient, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Vote.EmailRecipient, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,7 +54,7 @@
         <div id="finish" class="form-group">
             @Html.LabelFor(model => model.Vote.DateFinish, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Vote.DateFinish, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DateFinish, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Vote.DateFinish, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -62,36 +62,25 @@
         <div id ="category" class="form-group">
             @Html.LabelFor(model => model.Vote.Category, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Vote.CategoryID, new SelectList(Model.Categories, "ID", "Name"))
+                @Html.DropDownListFor(model => model.CategoryID, new SelectList(Model.Categories, "ID", "Name"))
                 @Html.ValidationMessageFor(model => model.Vote.Category, "", new { @class = "text-danger" })
 
             </div>
         </div>
 
-
         <div id="options" class="form-group">
             @Html.LabelFor(model => model.Vote.Questions, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <table class="table">
-                    @foreach (var item in Model.Vote.Questions)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VoitCounts)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "../Questions/Edit", new { id = item.ID }) |
-                                @Html.ActionLink("Details", "../Questions/Details", new { id = item.ID }) |
-                                @Html.ActionLink("Delete", "../Questions/Delete", new { id = item.ID })
-                            </td>
-                        </tr>
-                    }
 
-                </table>
-
+                @for (int i = 0; i < Model.Questions.Count; i++)
+                {
+                    @(i + 1)<span>.</span>
+                    @Html.HiddenFor(model => model.Questions[i].ID)
+                    @Html.EditorFor(model => model.Questions[i].Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Questions[i].Name, "", new { @class = "text-danger" })
+                    @Html.ActionLink("Delete", "../Questions/Delete", new { id = Model.Questions[i].ID })
+                    <br />
+                }
             </div>
         </div>
         

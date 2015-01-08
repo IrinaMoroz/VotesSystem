@@ -35,13 +35,6 @@
             @Html.DisplayFor(model => model.IsPrivate)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailRecipient)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailRecipient)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.LastModifiedBy)
@@ -59,9 +52,27 @@
             @Html.DisplayFor(model => model.LastModifiedDate)
         </dd>
 
-    </dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateFinish)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateFinish)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Questions)
+        </dt>
+        @foreach (var item in Model.Questions){
+            <dd>
+                <span>(</span>@Html.DisplayFor(model => item.VoitCounts)<span>)</span>
+                @Html.DisplayFor(model => item.Name)
+            </dd>
+         }
+
+
+</dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    
     @Html.ActionLink("Back to List", "Index")
 </p>

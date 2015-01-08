@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,6 +16,8 @@ namespace VoteSystem.Web.Controllers
 {
     public class VotesController : Controller
     {
+        ILog logger = LogManager.GetLogger(typeof(VotesController));
+
         private VoteSystemContext db = new VoteSystemContext();
 
         // GET: Votes
@@ -53,15 +56,16 @@ namespace VoteSystem.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = 
-            "ID,Name,Description,IsPrivate,EmailRecipient,DateFinish,CategoryID")] Vote vote, string[] questions)
+            "ID,Name,Description,IsPrivate,EmailRecipient,DateFinish,CategoryID,Questions")] VoteModel voteModel)
         {
+            Vote vote = voteModel; ;
             try
             {            
                 if (ModelState.IsValid)
                 {
-                    Console.WriteLine(questions);
-                    vote.LastModifiedDate = DateTime.Now;
-                    vote.Category = db.Categories.Find(vote.CategoryID);                    
+                    vote.LastModifiedDate = DateTime.Now;                    
+                    vote.Category = db.Categories.Find(voteModel.CategoryID);
+
                     db.Votes.Add(vote);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -83,13 +87,14 @@ namespace VoteSystem.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vote vote = db.Votes.Find(id);
-            if (vote == null)
+            VoteModel vm = db.Votes.Find(id);
+            if (vm == null)
             {
                 return HttpNotFound();
             }
 
-            return View(new VoteModel(vote, db.Categories.ToList<Category>()));
+            vm.Categories = db.Categories.ToList<Category>();
+            return View(vm);
         }
 
         // POST: Votes/Edit/5
@@ -97,12 +102,16 @@ namespace VoteSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,IsPrivate,EmailRecipient,DateFinish,CategoryID")] Vote vote)
+        public ActionResult Edit([Bind(Include =
+            "ID,Name,Description,IsPrivate,EmailRecipient,DateFinish,CategoryID,Questions")] VoteModel voteModel)
         {
+            Vote vote = voteModel;
             if (ModelState.IsValid)
             {
                 vote.LastModifiedDate = DateTime.Now;
-                vote.Category = GetCategoryById(vote.CategoryID); 
+                vote.Category = db.Categories.Find(voteModel.CategoryID);
+                foreach(var question in vote.Questions)
+                    db.Entry(question).State = EntityState.Modified;
                 db.Entry(vote).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

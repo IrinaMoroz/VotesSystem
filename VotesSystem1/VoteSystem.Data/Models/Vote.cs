@@ -31,11 +31,9 @@ namespace VoteSystem.Data
         public string LastModifiedBy { get; set; }
         public DateTime LastModifiedDate { get; set; }
         public virtual User User { get; set; }
-        public int CategoryID { get; set; }
-
         [Display(Name = "Category: ")]
         public virtual Category Category { get; set; }
-        public virtual ICollection<Question> Questions { get; set; }
+        public virtual List<Question> Questions { get; set; }
 
     }
 }

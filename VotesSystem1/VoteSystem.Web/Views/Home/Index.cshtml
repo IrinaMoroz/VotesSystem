@@ -12,7 +12,8 @@
     {
         <div style="border-width:medium; border:5px">
             <div style="border-bottom: 5px; border-bottom-color:red">
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.ActionLink(item.Name, "../Votes/Details", new {id = item.ID})
+               
             </div>
             <ul>
                 @foreach (var question in item.Questions)
