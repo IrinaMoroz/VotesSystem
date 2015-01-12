@@ -13,7 +13,7 @@ namespace VoteSystem.Data
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
-        public int VoitCounts { get; set; }
+        public int VoteCount { get; set; }
         public virtual Vote Vote { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }

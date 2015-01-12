@@ -110,8 +110,9 @@ namespace VoteSystem.Web.Controllers
             {
                 vote.LastModifiedDate = DateTime.Now;
                 vote.Category = db.Categories.Find(voteModel.CategoryID);
-                foreach(var question in vote.Questions)
-                    db.Entry(question).State = EntityState.Modified;
+                if (vote.Questions != null)
+                    foreach(var question in vote.Questions)
+                        db.Entry(question).State = EntityState.Modified;
                 db.Entry(vote).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -142,6 +143,18 @@ namespace VoteSystem.Web.Controllers
             Vote vote = db.Votes.Find(id);
             db.Votes.Remove(vote);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // POST: Votes/Vote/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MakeVote([Bind(Include =
+            "ID, vote.ID")] QuestionModel question)
+        {
+            logger.Debug(question);
             return RedirectToAction("Index");
         }
 

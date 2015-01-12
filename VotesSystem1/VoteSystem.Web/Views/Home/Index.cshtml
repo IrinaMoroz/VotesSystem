@@ -1,28 +1,12 @@
 ﻿@model IEnumerable<VoteSystem.Data.Vote>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "MakeVote";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Votes</h2>
 
 <p>@Html.ActionLink("Create New Vote", "Create", "Votes")</p>
 
-@foreach (var item in Model)
-    {
-        <div style="border-width:medium; border:5px">
-            <div style="border-bottom: 5px; border-bottom-color:red">
-                @Html.ActionLink(item.Name, "../Votes/Details", new {id = item.ID})
-               
-            </div>
-            <ul>
-                @foreach (var question in item.Questions)
-                {
-                    <li>
-                        @Html.DisplayFor(modelItem => question.Name)
-                        @Html.DisplayFor(modelItem => question.VoitCounts)
-                    </li>
-                }
-            </ul>
-        </div>
-    }
+
+@{ Html.RenderPartial("~/Views/Shared/_Vote.cshtml", Model);}

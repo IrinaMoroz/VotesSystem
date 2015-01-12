@@ -1,1 +1,7 @@
 2015-01-08 16:04:17,007 [7] DEBUG VoteSystem.Web.Controllers.VotesController [(null)] - DEBUG: List<Question>= System.Collections.Generic.List`1[VoteSystem.Data.Question]
+2015-01-10 18:49:42,612 [7] DEBUG VoteSystem.Web.Controllers.VotesController [(null)] - 0 - 0
+2015-01-10 19:04:50,668 [6] DEBUG VoteSystem.Web.Controllers.VotesController [(null)] - 0 - 0
+2015-01-10 19:05:01,148 [10] DEBUG VoteSystem.Web.Controllers.VotesController [(null)] - 0 - 0
+2015-01-10 19:07:55,037 [8] DEBUG VoteSystem.Web.Controllers.VotesController [(null)] - VoteSystem.Data.Question
+2015-01-10 19:10:44,611 [8] DEBUG VoteSystem.Web.Controllers.VotesController [(null)] - VoteSystem.Data.Question
+2015-01-11 12:50:34,403 [7] DEBUG VoteSystem.Web.Controllers.VotesController [(null)] - 6

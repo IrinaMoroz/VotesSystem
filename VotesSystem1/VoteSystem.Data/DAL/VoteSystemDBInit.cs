@@ -24,17 +24,17 @@ namespace VoteSystem.Data.DAL
             };
             var questions = new List<Question>
             {
-                new Question{Name="Question0", VoitCounts=1, Users=new List<User>{users[0]}},
-                new Question{Name="Question1", VoitCounts=1}
+                new Question{Name="Question0", VoteCount=1, Users=new List<User>{users[0]}},
+                new Question{Name="Question1", VoteCount=1}
             };
             var votes = new List<Vote>
             {
                 new Vote{Category=categories[0], Description="description0", EmailRecipient="email0",
                  IsPrivate=false, LastModifiedBy="Olosh", LastModifiedDate=DateTime.Now, Name="Vote0", 
-                 Questions=new List<Question>{questions[0], questions[1]}, User=users[0], DateFinish=new DateTime(2014, 12, 23, 12,00,00)},
+                 Questions=new List<Question>{questions[0], questions[1]}, User=users[0], DateFinish=DateTime.Now},
                 new Vote{Category=categories[1], Description="description1", EmailRecipient="email1",
                 IsPrivate=true, LastModifiedBy="Olosh1", LastModifiedDate=DateTime.Now, Name="Vote1", 
-                Questions=new List<Question>{questions[0], questions[1]}, User=users[1],DateFinish=new DateTime(2014, 12, 30, 12,00,00)}
+                Questions=new List<Question>{questions[0], questions[1]}, User=users[1],DateFinish=DateTime.Now}
             };
 
             users.ForEach(s => context.Users.Add(s));
